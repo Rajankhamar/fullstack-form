@@ -122,7 +122,11 @@ jobs:
             cd ~/fullstack-form
             export DOCKERHUB_USERNAME IMAGE_TAG
             docker compose -f docker-compose.prod.yml pull
-            docker compose -f docker-compose.prod.yml up -d --wait --remove-orphans
+            if ! docker compose -f docker-compose.prod.yml up -d --wait --wait-timeout 180 --remove-orphans; then
+              docker compose -f docker-compose.prod.yml ps -a
+              docker compose -f docker-compose.prod.yml logs --no-color --tail=100
+              exit 1
+            fi
             curl --fail http://localhost/ || exit 1
             docker compose -f docker-compose.prod.yml ps
             docker image prune -f
