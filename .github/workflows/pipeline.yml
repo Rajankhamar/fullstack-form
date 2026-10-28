@@ -12,7 +12,7 @@ permissions:
 jobs:
   test:
     name: Test application with MongoDB
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Check out source
         uses: actions/checkout@v4
@@ -86,7 +86,7 @@ jobs:
     name: Deploy to AWS EC2
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: publish
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Prepare deployment directory on EC2
         uses: appleboy/ssh-action@v1.2.0
