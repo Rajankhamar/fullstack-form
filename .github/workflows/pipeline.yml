@@ -88,6 +88,9 @@ jobs:
     needs: publish
     runs-on: ubuntu-22.04
     steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
       - name: Prepare deployment directory on EC2
         uses: appleboy/ssh-action@v1.2.0
         with:
