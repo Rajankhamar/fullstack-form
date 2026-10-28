@@ -6,9 +6,10 @@ services:
       - mongo-data:/data/db
     healthcheck:
       test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      start_period: 60s
       interval: 5s
-      timeout: 3s
-      retries: 20
+      timeout: 10s
+      retries: 30
 
   backend:
     image: ${DOCKERHUB_USERNAME:?Set DOCKERHUB_USERNAME}/fullstack-form-backend:${IMAGE_TAG:-latest}
